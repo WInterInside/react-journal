@@ -1,29 +1,36 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const pageNames = {
+	"/NewPage": "Create Lesson",
+	"/NewLargePage": "New Large Page"
+};
+
 export default function Header() {
 	const [date, setDate] = useState(new Date());
+	const location = useLocation();
 
 	useEffect(() => {
-		const timerID = setInterval(() => tick(), 1000);
-		return function cleanup() {
-			clearInterval(timerID);
-		};
-	});
-
-	const tick = () => {
+		const intervalId = setInterval(() => {
 		setDate(new Date());
-	};
+	}, 1000);
 
-	const location = useLocation();
-	const pageName = location.pathname.includes("NewPage") ? "home" : "Create Lesson";
-	const linkTo = location.pathname.includes("NewPage") ? "/" : "/NewPage";
+	return () => clearInterval(intervalId);
+	}, [date]);
 
 	return (
 		<header>
-		<h3>Winter Inside</h3>
-		<Link to={linkTo}>{pageName}</Link>
-		<span>Time: {date.toLocaleTimeString()}</span>
+			<a className="logo" href="/">Winter Inside</a>
+
+			{Object.keys(pageNames).map((path) => (
+				<Link
+					className={location.pathname === path ? "current" : ""}
+					key={path}
+					to={path}>{pageNames[path]}
+				</Link>
+			))}
+
+			<span>Time: {date.toLocaleTimeString()}</span>
 		</header>
 	);
 }

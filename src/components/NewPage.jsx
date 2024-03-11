@@ -5,6 +5,7 @@ export default function NewPage() {
 	const [destinationItems, setDestinationItems] = useState([]);
 	const [showList2, setShowList2] = useState(false);
 	const [lessonName, setLessonName] = useState('');
+	const isLessonNameEmpty = lessonName.trim() === '';
 
 	const createLesson = () => {
 		setShowList2(true);
@@ -55,7 +56,7 @@ export default function NewPage() {
 		const updatedDestinationItems = destinationItems.filter((item, i) => i !== index);
 		setDestinationItems(updatedDestinationItems);
 	};
-	
+
 	const saveLesson = () => {
 		const lessonData = {
 			llessonName: lessonName,
@@ -148,14 +149,19 @@ export default function NewPage() {
 
 				{showList2 && (
 					<div className="save-form">
-						<input 
-							type="text" 
-							placeholder="название урока?" 
-							value={lessonName} 
-							onChange={(e) => setLessonName(e.target.value)} 
-						/>
-						<button 
-							className={`list__btn ${destinationItems.length === 0 ? 'disabled' : ''}`}
+						<div className="save-form-wrapper">
+							{isLessonNameEmpty && destinationItems.length > 0 && (
+								<span>Введите название урока</span>
+							)}
+							<input
+								type="text"
+								placeholder="название урока?"
+								value={lessonName}
+								onChange={(e) => setLessonName(e.target.value)}
+							/>
+						</div>
+						<button
+							className={`list__btn ${destinationItems.length === 0 || isLessonNameEmpty  ? 'disabled' : ''}`}
 							onClick={saveLesson}>
 								Save Lesson
 						</button>

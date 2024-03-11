@@ -115,6 +115,10 @@ a {
 	font-weight: bold;
 }
 
+h1 {
+	text-align: center;
+}
+
 .nav {
 	display: flex;
 	gap: 1rem;
@@ -127,6 +131,20 @@ a {
 	width: auto;
 	display: flex;
 	padding: 1rem;
+}
+
+.logo {
+	text-decoration: none;
+	color: rgb(1, 48, 32);
+	font-size: 40px;
+}
+
+.current {
+	color: #fff;
+	transition: all .3s;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: rgba(61, 61, 61, 0.434);
 }
 
 input,
@@ -171,8 +189,9 @@ label {
 	flex-shrink: 0;
 }
 
-.modal {
-	display: block;
+.article__modal {
+	display: flex;
+	flex-direction: column;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -183,7 +202,7 @@ label {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.modal p {
+.article__modal p {
 	width: 100%;
 }
 
@@ -199,6 +218,10 @@ label {
 	height: 200px;
 	object-fit: cover;
 	border-radius: 1rem;
+}
+
+.article__modal-prev {
+	margin: 1rem 0;
 }
 
 .article__title {
@@ -248,16 +271,6 @@ label {
 	padding: 5px;
 	border-radius: 50%;
 	transition: all .3s;
-}
-
-.article__modal {
-	background-color: #ccc;
-	position: absolute;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
 }
 
 .journal__btn {
@@ -311,14 +324,23 @@ label {
 	border-radius: 5px;
 }
 
+.save-form-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 5px;
+}
+
+.save-form-wrapper span {
+	font-size: 7px;
+	text-align: center;
+	color: red;
+}
+
 .disabled {
 	pointer-events: none;
 	opacity: .5;
 }
-
-/* .list__btn {
-	margin-right: 1rem;
-} */
 
 .list__item {
 	position: relative;

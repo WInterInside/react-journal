@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Article from "./Article";
 import Slider from "react-slick";
+import ModalArticle from "./ModalArticle";
 import articlePrev from '/articlePrev.jpg';
 
 export default function YogaJournal() {
 	const [load, setLoad] = useState(false);
 	const [allArticles, setAllArticles] = useState([]);
-	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedArticle, setSelectedArticle] = useState(null);
-
+	const [isModalOpen, setModalOpen] = useState(false);
 	const sliderSettings = {dots: true,	infinite: true,	speed: 500,	slidesToShow: 3, slidesToScroll: 3};
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -23,11 +23,6 @@ export default function YogaJournal() {
 		setModalOpen(true);
 		console.log('open modal');
 		document.querySelector('body').setAttribute('is-modal', 'true');
-	};
-
-	const closeModal = () => {
-		setModalOpen(false);
-		document.querySelector('body').removeAttribute('is-modal');
 	};
 
 	const handleNextPage = () => {
@@ -104,17 +99,13 @@ export default function YogaJournal() {
 				</button>
 			</div>
 
-			{modalOpen && selectedArticle && (
-				<div className="modal">
-					<img src={articlePrev} className="article__prev" alt="article prev" />
-					<h2>{selectedArticle.title}</h2>
-					<p>{selectedArticle.body}</p>
-					<p>{selectedArticle.body}</p>
-					<p>{selectedArticle.body}</p>
-					<button onClick={closeModal}>Закрыть</button>
-				</div>
+			{isModalOpen && selectedArticle && (
+				<ModalArticle
+					title={selectedArticle.title}
+					body={selectedArticle.body}
+					onClose={() => setModalOpen(false)}
+				/>
 			)}
-
 		</section>
 	);
 }
